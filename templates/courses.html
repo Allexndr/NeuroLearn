@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Курсы — NeuroLearn</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/courses.css') }}">
+</head>
+<body>
+<header class="navbar">
+  <div class="container d-flex justify-content-between align-items-center">
+    <h1 class="logo">NeuroLearn</h1>
+    <nav>
+      <a href="/" class="me-3">Home</a>
+      <a href="/about" class="me-3">About Us</a>
+      <a href="/courses" class="me-3 active">Courses</a>
+      <a href="/blog" class="me-3">Blog</a>
+      <a href="/contact" class="me-3">Contact</a>
+    </nav>
+  </div>
+</header>
+<section id="courses" class="courses-section">
+  <div class="container">
+    <h2 class="text-center">Наши Курсы</h2>
+    <p class="text-center">Выберите курс, который соответствует вашим целям обучения.</p>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="course-card">
+          <h3>Основы программирования</h3>
+          <p>Научитесь основам кода с примерами на Python, Java, и C++.</p>
+          <a href="#" class="btn">Подробнее</a>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="course-card">
+          <h3>Дизайн и UX/UI</h3>
+          <p>Изучите основы проектирования пользовательских интерфейсов.</p>
+          <a href="#" class="btn">Подробнее</a>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="course-card">
+          <h3>Искусственный интеллект</h3>
+          <p>Узнайте, как строить модели машинного обучения с нуля.</p>
+          <a href="#" class="btn">Подробнее</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
