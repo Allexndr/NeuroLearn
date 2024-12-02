@@ -1,12 +1,25 @@
 from flask import Flask, render_template, request
 import google.generativeai as genai
 import os
+from markupsafe import Markup
 
 # Установка API ключа для Google Gemini
-os.environ["GOOGLE_API_KEY"] = ""
+os.environ["GOOGLE_API_KEY"] = "AIzaSyCrxXOE4h3nfOHGatKQYCxVH089hwmlDZo"
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 app = Flask(__name__)
+def format_course_content(raw_content):
+    # Очистка ненужных символов
+    formatted_content = raw_content.replace("**", "").replace("*", "")
+
+    # Преобразование специальных ключевых слов в HTML-теги
+    formatted_content = formatted_content.replace("##", "<h3>").replace(":", "</h3>")
+    formatted_content = formatted_content.replace("*", "<li>").replace(".", "</li>")
+
+    # Обернем в теги, чтобы было красиво и удобно читать
+    formatted_content = f"<div class='course-content'>{formatted_content}</div>"
+
+    return Markup(formatted_content)
 
 # Функция для генерации курса
 def generate_course_content(course_description):
@@ -37,7 +50,6 @@ def generate_course():
     course_description = request.form['course_description']
     content_type = request.form.get('contentType', 'course')
 
-    # Уточнение запроса в зависимости от типа контента
     if content_type == "course" and not is_course_related(course_description):
         course_description = f"Создай учебный курс по теме: {course_description}"
     elif content_type == "lecture":
@@ -45,8 +57,10 @@ def generate_course():
     elif content_type == "answer":
         course_description = f"Ответь на вопрос: {course_description}"
 
-    # Генерация курса и передача его в шаблон
-    course_content = generate_course_content(course_description)
+    # Генерация курса
+    raw_content = generate_course_content(course_description)
+    # Форматирование
+    course_content = format_course_content(raw_content)
     return render_template("result.html", course_title=course_title, course_content=course_content)
 
 if __name__ == '__main__':

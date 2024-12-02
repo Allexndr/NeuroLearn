@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Course Result</title>
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-<!-- Название курса -->
-<h2>{{ course_title }}</h2>
-
-<!-- Описание и контент курса -->
-<p>{{ course_content }}</p>
+<div class="container">
+    <h2>{{ course_title }}</h2>
+    <div>{{ course_content|safe }}</div>
+</div>
 </body>
 </html>
