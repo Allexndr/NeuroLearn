@@ -2,15 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Course Generator</title>
 </head>
 <body>
-<h1>Course Generator</h1>
+<h1>Генератор учебных курсов</h1>
+
 <form action="/generate-course" method="POST">
-    <label for="course_description">Course Description:</label><br>
-    <textarea id="course_description" name="course_description" rows="4" cols="50"></textarea><br><br>
-    <input type="submit" value="Generate Course">
+    <label for="course_description">Описание курса:</label>
+    <input type="text" id="course_description" name="course_description" required>
+
+    <label for="contentType">Тип контента:</label>
+    <select id="contentType" name="contentType">
+        <option value="course">Курс</option>
+        <option value="lecture">Лекция</option>
+        <option value="answer">Ответ на вопрос</option>
+    </select>
+
+    <button type="submit">Сгенерировать</button>
 </form>
+
+<div id="loading" style="display: none;">Загрузка...</div>
+
+<script>
+    document.querySelector("form").onsubmit = function() {
+        document.getElementById("loading").style.display = "block";
+        document.querySelector("form").style.display = "none";
+    };
+</script>
 </body>
 </html>
