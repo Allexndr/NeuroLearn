@@ -17,12 +17,14 @@ body {
     width: 100%;
     text-align: center;
 }
+
 .result-text {
     font-size: 18px;
     color: #333333;
     line-height: 1.6;
     margin: 20px 0;
 }
+
 .back-button {
     display: inline-block;
     padding: 10px 20px;
@@ -39,6 +41,7 @@ body {
 .back-button:hover {
     background-color: #0056b3;
 }
+
 #loading {
     font-size: 1.5em;
     font-weight: bold;

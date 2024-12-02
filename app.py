@@ -3,7 +3,7 @@ import google.generativeai as genai
 import os
 
 # Установка API ключа для Google Gemini
-os.environ["GOOGLE_API_KEY"] = "AIzaSyCrxXOE4h3nfOHGatKQYCxVH089hwmlDZo"
+os.environ["GOOGLE_API_KEY"] = ""
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 app = Flask(__name__)
@@ -33,6 +33,7 @@ def index():
 # Маршрут для генерации контента
 @app.route('/generate-course', methods=['POST'])
 def generate_course():
+    course_title = request.form['course_title']  # Получаем название курса
     course_description = request.form['course_description']
     content_type = request.form.get('contentType', 'course')
 
@@ -46,7 +47,7 @@ def generate_course():
 
     # Генерация курса и передача его в шаблон
     course_content = generate_course_content(course_description)
-    return render_template("result.html", course_content=course_content)
+    return render_template("result.html", course_title=course_title, course_content=course_content)
 
 if __name__ == '__main__':
     app.run(debug=True)

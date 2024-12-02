@@ -7,10 +7,17 @@
 <body>
 <h1>Генератор учебных курсов</h1>
 
+<!-- Форма для ввода данных -->
 <form action="/generate-course" method="POST">
+    <!-- Поле для названия курса -->
+    <label for="course_title">Название курса:</label>
+    <input type="text" id="course_title" name="course_title" required>
+
+    <!-- Поле для описания курса -->
     <label for="course_description">Описание курса:</label>
     <input type="text" id="course_description" name="course_description" required>
 
+    <!-- Выпадающий список для выбора типа контента -->
     <label for="contentType">Тип контента:</label>
     <select id="contentType" name="contentType">
         <option value="course">Курс</option>
@@ -18,6 +25,7 @@
         <option value="answer">Ответ на вопрос</option>
     </select>
 
+    <!-- Кнопка для отправки формы -->
     <button type="submit">Сгенерировать</button>
 </form>
 
