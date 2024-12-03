@@ -24,15 +24,12 @@ This project is a web application built using Flask, which leverages Google Gemi
 1. **Clone the repository**:
    ```bash
    git clone https://github.com/yourusername/course-generator-flask.git
-2. **Install the required dependencies:**
-   ```bash
-   pip install -r requirements.txt
-3. **Set up your API keys:**
+2. **Set up your API keys:**
    - **Google Gemini API Key**: Set up your key and configure it in the GOOGLE_API_KEY environment variable.
    - **Unsplash API Key**: Set up your Unsplash API key and replace the placeholder in the code.
    - **Bing API Key**: Set up your Bing Search API key and replace the placeholder in the code.
    - **YouTube API Key**: Set up your YouTube API key and replace the placeholder in the code.
-4. **Run the application:**
+3. **Run the application:**
    ```bash
    python app.py
 ## Endpoints
