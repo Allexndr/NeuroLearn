@@ -1,40 +1,142 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 import google.generativeai as genai
 import os
 import requests
 from markupsafe import Markup
+from flask_sqlalchemy import SQLAlchemy
 
 # Настройка API ключей
 os.environ["GOOGLE_API_KEY"] = "AIzaSyCrxXOE4h3nfOHGatKQYCxVH089hwmlDZo"
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
-app = Flask(__name__, static_folder="static", template_folder="templates")
-app.secret_key = 'supersecretkey'
+app = Flask(__name__, static_folder='static', template_folder='templates')
+app.secret_key = "supersecretkey"
 
-# Функция для форматирования текста курса
+#
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://:password@localhost/your_database'
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# db = SQLAlchemy(app)
+
+# Модель пользователя
+# class User(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     username = db.Column(db.String(80), nullable=False)
+#     email = db.Column(db.String(120), unique=True, nullable=False)
+#     password = db.Column(db.String(200), nullable=False)
+# #
+# # Маршруты
+# @app.route('/signup', methods=['GET', 'POST'])
+# def signup():
+#     if request.method == 'POST':
+#         username = request.form['username']
+#         email = request.form['email']
+#         password = request.form['password']
+#
+#         new_user = User(username=username, email=email, password=password)
+#         db.session.add(new_user)
+#         db.session.commit()
+#         return redirect(url_for('login'))
+#     return render_template('signup.html')
+#
+# @app.route('/login', methods=['GET', 'POST'])
+# def login():
+#     if request.method == 'POST':
+#         email = request.form['email']
+#         password = request.form['password']
+#         user = User.query.filter_by(email=email, password=password).first()
+#         if user:
+#             return f"Welcome, {user.username}!"
+#         return "Invalid credentials. Try again."
+#     return render_template('login.html')
+
+
+# ==============================
+# Вспомогательные функции
+# ==============================
+
+# Форматирование контента курса
 def format_course_content(raw_content):
-    formatted_content = raw_content.replace("**", "").replace("*", "")
-    formatted_content = formatted_content.replace("##", "<h3>").replace(":", "</h3>")
-    formatted_content = formatted_content.replace("*", "<li>").replace(".", "</li>")
-    formatted_content = f"<div class='course-content'>{formatted_content}</div>"
-    return Markup(formatted_content)
+    try:
+        # Разбиваем текст на модули
+        modules = raw_content.split("Модуль")
+        formatted_content = ""
 
-# Функция для получения изображений с Unsplash
+        for i, module in enumerate(modules):
+            if module.strip():
+                # Заголовок модуля
+                module_lines = module.strip().split("\n")
+                module_title = module_lines[0] if module_lines else f"Модуль {i+1}"
+                formatted_content += f"<h2>Модуль {module_title.strip()}</h2>"
+
+                # Разбиваем уроки внутри модуля
+                lessons = module.split("Урок")
+                for j, lesson in enumerate(lessons):
+                    if lesson.strip():
+                        lesson_lines = lesson.strip().split("\n")
+                        lesson_title = lesson_lines[0] if lesson_lines else f"Урок {j+1}"
+                        formatted_content += f"<h3>Урок {lesson_title.strip()}</h3>"
+
+                        # Добавляем наполнение урока
+                        formatted_content += "<p><strong>Теория:</strong> Изучите основы этой темы.</p>"
+                        formatted_content += "<p><strong>Практика:</strong> Выполните задание, чтобы закрепить материал.</p>"
+                        formatted_content += "<p><strong>Дополнительные ресурсы:</strong></p>"
+                        formatted_content += """
+                        <ul>
+                            <li><a href="https://example.com" target="_blank">Полезный сайт 1</a></li>
+                            <li><a href="https://example.com" target="_blank">Полезный сайт 2</a></li>
+                        </ul>
+                        """
+
+        # Возвращаем отформатированный текст
+        return Markup(f"<div class='course-content'>{formatted_content}</div>")
+    except Exception as e:
+        print(f"Ошибка форматирования: {e}")
+        return Markup(f"<p>{raw_content}</p>")
+
+# Генерация курса через Google Gemini
+def generate_course_content(course_description):
+    try:
+        model = genai.GenerativeModel('gemini-1.5-flash')
+        response = model.generate_content(course_description)
+        if response.candidates:
+            return response.candidates[0].content.parts[0].text
+        else:
+            return "Ошибка: Ответ не был получен"
+    except Exception as e:
+        return f"Ошибка: Не удалось подключиться к сервису. Детали: {str(e)}"
+
+# Получение тематического изображения с Unsplash
 def get_image_for_topic(topic):
     try:
         response = requests.get(
-            "https://api.unsplash.com/photos/random",
-            params={"query": topic, "client_id": "YOUR_UNSPLASH_API_KEY"}
+            "https://api.unsplash.com/search/photos",
+            params={
+                "query": topic,
+                "client_id": "A0DjwN9LCDJ2ZWUcdNeqaqzMQ6O10tSTDKi86Im3z6M",
+                "per_page": 3  # Возвращаем 3 изображения
+            }
         )
-        data = response.json()
-        return data['urls']['regular']
-    except Exception as e:
-        return "/static/images/default.jpg"
+        if response.status_code != 200:
+            print(f"Ошибка Unsplash API: {response.status_code}, {response.text}")
+            return ["/static/images/default.jpg"] * 3  # Вернуть три дефолтных изображения при ошибке
 
-# Функция для получения видео с YouTube
+        data = response.json()
+        if data['results']:
+            # Возвращаем URL до 3 изображений
+            return [item['urls']['regular'] for item in data['results'][:3]]
+        else:
+            print("Нет результатов для указанной темы.")
+            return ["/static/images/default.jpg"] * 3
+    except Exception as e:
+        print(f"Ошибка получения изображения: {e}")
+        return ["/static/images/default.jpg"] * 3
+
+
+# Получение видео с YouTube
 def get_videos_for_topic(topic):
     try:
-        api_key = "YOUR_YOUTUBE_API_KEY"
+        api_key = "AIzaSyB_4t_dhe5vNifnVhbwAxhzT8NDE0cBFag"
         url = f"https://www.googleapis.com/youtube/v3/search?part=snippet&q={topic}&type=video&key={api_key}&maxResults=3"
         response = requests.get(url)
         data = response.json()
@@ -49,7 +151,7 @@ def get_videos_for_topic(topic):
     except Exception as e:
         return []
 
-# Функция для получения полезных ссылок
+# Получение полезных ссылок через Bing API
 def get_links_for_topic(topic):
     try:
         headers = {"Ocp-Apim-Subscription-Key": "YOUR_BING_API_KEY"}
@@ -64,52 +166,85 @@ def get_links_for_topic(topic):
     except Exception as e:
         return []
 
-# Генерация курса
-def generate_course_content(course_description):
-    try:
-        model = genai.GenerativeModel('gemini-1.5-flash')
-        response = model.generate_content(course_description)
-        if response.candidates:
-            return response.candidates[0].content.parts[0].text
-        else:
-            return "Ошибка: Ответ не был получен"
-    except Exception as e:
-        return f"Ошибка: Не удалось подключиться к сервису. Детали: {str(e)}"
+# ==============================
+# Маршруты
+# ==============================
 
+# Главная страница
 @app.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/generate-course', methods=['POST'])
-def generate_course():
-    course_title = request.form['course_title']
-    course_description = request.form['course_description']
-    content_type = request.form.get('contentType', 'course')
+# Генерация курса
+@app.route('/generate', methods=['POST', 'GET'])
+def generate():
+    if request.method == 'POST':
+        topic = request.form.get('topic')
+    else:
+        topic = request.args.get('topic', 'Курс по умолчанию')
 
-    if content_type == "course":
-        course_description = f"Создай учебный курс по теме: {course_description}"
-    elif content_type == "lecture":
-        course_description = f"Создай лекцию по теме: {course_description}"
-    elif content_type == "answer":
-        course_description = f"Ответь на вопрос: {course_description}"
-
-    # Генерация курса
+    # Генерация описания курса
+    course_description = f"Создай учебный курс по теме: {topic}"
     raw_content = generate_course_content(course_description)
     course_content = format_course_content(raw_content)
-
-    # Динамическое наполнение
-    course_image = get_image_for_topic(course_description)
-    course_videos = get_videos_for_topic(course_description)
-    course_links = get_links_for_topic(course_description)
+    course_images = get_image_for_topic(topic)
+    course_videos = get_videos_for_topic(topic)
 
     return render_template(
-        "result.html",
-        course_title=course_title,
+        "results.html",
+        course_title=topic,
         course_content=course_content,
-        course_image=course_image,
-        course_videos=course_videos,
-        course_links=course_links
+        course_images=course_images,
+        course_videos=course_videos
     )
+
+
+# Страница "О проекте"
+@app.route('/about')
+def about():
+    return render_template('about.html')
+@app.route("/blog")
+def blog():
+    return render_template("blog.html")
+
+@app.route("/prices")
+def prices():
+    return render_template("prices.html")
+
+@app.route("/contact")
+def contact():
+    return render_template("contact.html")
+# Страница тарифов
+@app.route('/pricing')
+def pricing():
+    return render_template('prices.html')
+
+# Личный кабинет
+@app.route('/profile')
+def profile():
+    if 'user' in session:
+        return render_template('profile.html', user=session['user'])
+    return redirect(url_for('login'))
+@app.route('/courses')
+def courses():
+    return render_template('courses.html')
+# Вход в аккаунт
+@app.route('/login')
+def login():
+    session['user'] = {'name': 'Demo User', 'plan': 'Free'}
+    flash('Вы успешно вошли в систему!', 'success')
+    return redirect(url_for('profile'))
+
+# Выход из аккаунта
+@app.route('/logout')
+def logout():
+    session.pop('user', None)
+    flash('Вы вышли из системы.', 'info')
+    return redirect(url_for('index'))
+
+# ==============================
+# Запуск приложения
+# ==============================
 
 if __name__ == '__main__':
     app.run(debug=True)

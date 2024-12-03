@@ -11,44 +11,141 @@
 <header class="navbar">
   <div class="container d-flex justify-content-between align-items-center">
     <h1 class="logo">NeuroLearn</h1>
-    <nav>
+    <nav class="d-flex align-items-center">
       <a href="/" class="me-3">Home</a>
       <a href="/about" class="me-3">About Us</a>
-      <a href="/courses" class="me-3 active">Courses</a>
+      <a href="/courses" class="me-3">Courses</a>
       <a href="/blog" class="me-3">Blog</a>
+      <a href="/prices" class="me-3">Prices</a>
       <a href="/contact" class="me-3">Contact</a>
     </nav>
   </div>
 </header>
-<section id="courses" class="courses-section">
+
+<section id="courses" class="courses-section py-5">
   <div class="container">
-    <h2 class="text-center">Наши Курсы</h2>
-    <p class="text-center">Выберите курс, который соответствует вашим целям обучения.</p>
-    <div class="row">
-      <div class="col-md-4">
-        <div class="course-card">
-          <h3>Основы программирования</h3>
-          <p>Научитесь основам кода с примерами на Python, Java, и C++.</p>
-          <a href="#" class="btn">Подробнее</a>
+    <h2 class="text-center mb-4">Наши Курсы</h2>
+    <p class="text-center mb-5">Выберите курс по категории и уровню подготовки.</p>
+
+    <!-- Filters -->
+    <div class="filters mb-4">
+      <div class="row">
+        <div class="col-md-6">
+          <select class="form-select" id="category-filter">
+            <option value="all" selected>Все категории</option>
+            <option value="web-development">Web Development</option>
+            <option value="data-science">Data Science</option>
+            <option value="ui-ux">UI/UX Design</option>
+            <option value="ai">Artificial Intelligence</option>
+            <option value="marketing">Marketing</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <select class="form-select" id="level-filter">
+            <option value="all" selected>Все уровни</option>
+            <option value="beginner">Beginner</option>
+            <option value="intermediate">Intermediate</option>
+            <option value="advanced">Advanced</option>
+          </select>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="course-card">
-          <h3>Дизайн и UX/UI</h3>
-          <p>Изучите основы проектирования пользовательских интерфейсов.</p>
-          <a href="#" class="btn">Подробнее</a>
+    </div>
+
+    <!-- Course Cards -->
+    <div class="row" id="course-list">
+      <!-- Web Development -->
+      <div class="col-md-4 course-card web-development beginner">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Основы HTML и CSS</h5>
+            <p class="card-text">Научитесь создавать веб-страницы с нуля.</p>
+            <span class="badge bg-primary">Beginner</span>
+            <span class="badge bg-info">Web Development</span>
+          </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="course-card">
-          <h3>Искусственный интеллект</h3>
-          <p>Узнайте, как строить модели машинного обучения с нуля.</p>
-          <a href="#" class="btn">Подробнее</a>
+      <div class="col-md-4 course-card web-development intermediate">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">JavaScript для начинающих</h5>
+            <p class="card-text">Изучите основы JavaScript для интерактивных сайтов.</p>
+            <span class="badge bg-warning text-dark">Intermediate</span>
+            <span class="badge bg-info">Web Development</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Data Science -->
+      <div class="col-md-4 course-card data-science beginner">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Введение в Data Science</h5>
+            <p class="card-text">Основы анализа данных и Python.</p>
+            <span class="badge bg-primary">Beginner</span>
+            <span class="badge bg-info">Data Science</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 course-card data-science advanced">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Машинное обучение</h5>
+            <p class="card-text">Создавайте модели машинного обучения на Python.</p>
+            <span class="badge bg-danger">Advanced</span>
+            <span class="badge bg-info">Data Science</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- UI/UX Design -->
+      <div class="col-md-4 course-card ui-ux beginner">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Основы UX/UI</h5>
+            <p class="card-text">Создайте макет для мобильного приложения.</p>
+            <span class="badge bg-primary">Beginner</span>
+            <span class="badge bg-info">UI/UX Design</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Artificial Intelligence -->
+      <div class="col-md-4 course-card ai intermediate">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Основы AI</h5>
+            <p class="card-text">Изучите алгоритмы и модели машинного обучения.</p>
+            <span class="badge bg-warning text-dark">Intermediate</span>
+            <span class="badge bg-info">Artificial Intelligence</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Filtering logic
+  const courseCards = document.querySelectorAll('.course-card');
+  document.getElementById('category-filter').addEventListener('change', filterCourses);
+  document.getElementById('level-filter').addEventListener('change', filterCourses);
+
+  function filterCourses() {
+    const category = document.getElementById('category-filter').value;
+    const level = document.getElementById('level-filter').value;
+
+    courseCards.forEach(card => {
+      const isCategoryMatch = category === 'all' || card.classList.contains(category);
+      const isLevelMatch = level === 'all' || card.classList.contains(level);
+
+      if (isCategoryMatch && isLevelMatch) {
+        card.style.display = 'block';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+</script>
 </body>
 </html>

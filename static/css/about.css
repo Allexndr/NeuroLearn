@@ -44,14 +44,14 @@
 
 #about li:hover i {
     transform: scale(1.2);
-    color: #ffd700;
+    color: #ffffff;
 }
 
 /* Buttons in About Section */
 .about-section .btn {
     font-size: 1.2rem;
     padding: 10px 30px;
-    background-color: #ffc107;
+    background-color: #ffffff;
     color: #0056b3;
     border: none;
     border-radius: 5px;
@@ -62,7 +62,7 @@
 }
 
 .about-section .btn:hover {
-    background-color: #ffb700;
+    background-color: #ffffff;
     transform: scale(1.05);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -89,7 +89,7 @@
 #cta .btn {
     font-size: 1.2rem;
     padding: 10px 30px;
-    background-color: #ffc107;
+    background-color: #ffffff;
     color: #007bff;
     border: none;
     border-radius: 5px;
@@ -97,7 +97,7 @@
 }
 
 #cta .btn:hover {
-    background-color: #ffb700;
+    background-color: #ffffff;
     transform: scale(1.1);
 }
 
