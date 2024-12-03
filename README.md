@@ -23,7 +23,7 @@ This project is a web application built using Flask, which leverages Google Gemi
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/course-generator-flask.git
+   git clone https://github.com/Allexndr/NeuroLearn.git
 2. **Set up your API keys:**
    - **Google Gemini API Key**: Set up your key and configure it in the GOOGLE_API_KEY environment variable.
    - **Unsplash API Key**: Set up your Unsplash API key and replace the placeholder in the code.
