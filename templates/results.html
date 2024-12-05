@@ -54,6 +54,16 @@
             font-size: 1rem;
             color: #333;
         }
+
+        /* Эффект наведения на изображения */
+        .hover-effect {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hover-effect:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
     </style>
 </head>
 <body>
@@ -65,17 +75,25 @@
 
 <div class="container mt-5">
     <!-- Тематическое изображение -->
-    <div class="text-center">
-        <a href="#image-lightbox">
-            <img src="{{ course_image }}" alt="Тематическое изображение" class="img-fluid rounded shadow">
-        </a>
+    <div class="text-center mb-4">
+        <h3>Изображения по теме</h3>
+        <div class="row">
+            {% if course_images %}
+            {% for image in course_images %}
+            {% if image and image != "/static/images/default.jpg" %}
+            <div class="col-md-4 mb-3">
+                <a href="{{ image }}" target="_blank">
+                    <img src="{{ image }}" alt="Изображение по теме" class="img-fluid rounded shadow hover-effect">
+                </a>
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% else %}
+            <p class="text-muted">Нет изображений для отображения.</p>
+            {% endif %}
+        </div>
     </div>
 
-    <!-- Lightbox для просмотра изображения -->
-    <div id="image-lightbox" class="lightbox">
-        <a href="#" class="text-white text-decoration-none display-4">&times;</a>
-        <img src="{{ course_image }}" alt="Тематическое изображение">
-    </div>
 
     <!-- Содержание курса -->
     <div class="content bg-light p-4 rounded shadow mt-4 course-content">
@@ -109,11 +127,15 @@
     <div class="mt-5">
         <h3>Видеоуроки</h3>
         <div class="list-group">
+            {% if course_videos %}
             {% for video in course_videos %}
             <a href="{{ video.url }}" class="list-group-item list-group-item-action" target="_blank">
                 <i class="fas fa-video"></i> {{ video.title }}
             </a>
             {% endfor %}
+            {% else %}
+            <p class="text-muted">Нет видеороликов для отображения.</p>
+            {% endif %}
         </div>
     </div>
 
@@ -121,11 +143,15 @@
     <div class="mt-5">
         <h3>Полезные ресурсы</h3>
         <ul class="list-group">
+            {% if course_links %}
             {% for link in course_links %}
             <li class="list-group-item">
                 <a href="{{ link.url }}" target="_blank">{{ link.title }}</a>
             </li>
             {% endfor %}
+            {% else %}
+            <p class="text-muted">Нет полезных ссылок для отображения.</p>
+            {% endif %}
         </ul>
     </div>
 

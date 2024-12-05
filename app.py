@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import google.generativeai as genai
 import os
@@ -110,27 +111,22 @@ def generate_course_content(course_description):
 def get_image_for_topic(topic):
     try:
         response = requests.get(
-            "https://api.unsplash.com/search/photos",
+            "https://api.unsplash.com/photos/random",
             params={
                 "query": topic,
-                "client_id": "A0DjwN9LCDJ2ZWUcdNeqaqzMQ6O10tSTDKi86Im3z6M",
-                "per_page": 3  # Возвращаем 3 изображения
+                "client_id": "A0DjwN9LCDJ2ZWUcdNeqaqzMQ6O10tSTDKi86Im3z6M"  # Replace with your actual Unsplash API key
             }
         )
-        if response.status_code != 200:
-            print(f"Ошибка Unsplash API: {response.status_code}, {response.text}")
-            return ["/static/images/default.jpg"] * 3  # Вернуть три дефолтных изображения при ошибке
-
-        data = response.json()
-        if data['results']:
-            # Возвращаем URL до 3 изображений
-            return [item['urls']['regular'] for item in data['results'][:3]]
+        if response.status_code == 200:
+            data = response.json()
+            print(f"Unsplash API Response: {data}")  # Debug response
+            return data['urls']['regular']
         else:
-            print("Нет результатов для указанной темы.")
-            return ["/static/images/default.jpg"] * 3
+            print(f"Unsplash API Error: {response.status_code} - {response.text}")
+            return "/static/images/default.jpg"  # Default fallback image
     except Exception as e:
-        print(f"Ошибка получения изображения: {e}")
-        return ["/static/images/default.jpg"] * 3
+        print(f"Error fetching image: {e}")
+        return "/static/images/default.jpg"
 
 
 # Получение видео с YouTube
@@ -183,20 +179,26 @@ def generate():
     else:
         topic = request.args.get('topic', 'Курс по умолчанию')
 
-    # Генерация описания курса
     course_description = f"Создай учебный курс по теме: {topic}"
     raw_content = generate_course_content(course_description)
     course_content = format_course_content(raw_content)
-    course_images = get_image_for_topic(topic)
+    course_images = [get_image_for_topic(topic) for _ in range(3)]  # Generate 3 images
     course_videos = get_videos_for_topic(topic)
+    course_links = get_links_for_topic(topic)
+
+    # Debug output for images
+    print(f"Generated Images: {course_images}")
 
     return render_template(
         "results.html",
         course_title=topic,
         course_content=course_content,
         course_images=course_images,
-        course_videos=course_videos
+        course_videos=course_videos,
+        course_links=course_links
     )
+
+
 
 
 # Страница "О проекте"
