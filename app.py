@@ -101,17 +101,6 @@ def format_course_content(raw_content):
 # Генерация курса через Google Gemini
 def generate_course_content(course_description):
     try:
-        if not GOOGLE_API_KEY:
-            # Demo fallback: simple static outline
-            return (
-                "Модуль 1: Введение в тему\n"
-                "Урок 1: Обзор ключевых понятий\n\n"
-                "Модуль 2: Основы и практика\n"
-                "Урок 1: Первые шаги\n"
-                "Урок 2: Закрепление навыков\n\n"
-                "Модуль 3: Продвинутые идеи\n"
-                "Урок 1: Кейсы и примеры\n"
-            )
         model = genai.GenerativeModel('gemini-1.5-flash')
         response = model.generate_content(course_description)
         if response.candidates:
@@ -124,15 +113,6 @@ def generate_course_content(course_description):
 # Получение тематического изображения с Unsplash
 def get_image_for_topic(topic):
     try:
-        if not UNSPLASH_ACCESS_KEY:
-            # Demo images from local static folder
-            demo_images = [
-                "/static/images/ai_religion.png",
-                "/static/images/digital_identity_ai.png",
-                "/static/images/7ZN3.gif",
-            ]
-            # Return first demo image for a single call
-            return demo_images[hash(topic) % len(demo_images)]
         response = requests.get(
             "https://api.unsplash.com/photos/random",
             params={
@@ -156,11 +136,7 @@ def get_image_for_topic(topic):
 def get_videos_for_topic(topic):
     try:
         if not YOUTUBE_API_KEY:
-            return [
-                {"title": "Demo: What is AI?", "url": "https://www.youtube.com/watch?v=JMUxmLyrhSk"},
-                {"title": "Demo: Machine Learning Basics", "url": "https://www.youtube.com/watch?v=ukzFI9rgwfU"},
-                {"title": "Demo: Neural Networks", "url": "https://www.youtube.com/watch?v=aircAruvnKk"},
-            ]
+            return []
         api_key = YOUTUBE_API_KEY
         url = f"https://www.googleapis.com/youtube/v3/search?part=snippet&q={topic}&type=video&key={api_key}&maxResults=3"
         response = requests.get(url)
@@ -180,11 +156,7 @@ def get_videos_for_topic(topic):
 def get_links_for_topic(topic):
     try:
         if not BING_API_KEY:
-            return [
-                {"title": "Wikipedia — Topic Overview", "url": "https://en.wikipedia.org"},
-                {"title": "Khan Academy — Intro", "url": "https://www.khanacademy.org"},
-                {"title": "Coursera — Courses", "url": "https://www.coursera.org"},
-            ]
+            return []
         headers = {"Ocp-Apim-Subscription-Key": BING_API_KEY}
         params = {"q": topic, "count": 5}
         response = requests.get("https://api.bing.microsoft.com/v7.0/search", headers=headers, params=params)
