@@ -1,17 +1,14 @@
 
 from flask import Flask, render_template, request, redirect, url_for, session, flash
-import google.generativeai as genai
 import os
 import requests
 from markupsafe import Markup
-from flask_sqlalchemy import SQLAlchemy
 
 # Настройка API ключей (берем из переменных окружения)
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "")
 UNSPLASH_ACCESS_KEY = os.getenv("UNSPLASH_ACCESS_KEY", "")
 YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY", "")
 BING_API_KEY = os.getenv("BING_API_KEY", "")
-genai.configure(api_key=GOOGLE_API_KEY)
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
 app.secret_key = "supersecretkey"
@@ -20,7 +17,7 @@ app.secret_key = "supersecretkey"
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://:password@localhost/your_database'
 # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# db = SQLAlchemy(app)
+# База данных не используется в этой версии
 
 # Модель пользователя
 # class User(db.Model):
@@ -101,6 +98,11 @@ def format_course_content(raw_content):
 # Генерация курса через Google Gemini
 def generate_course_content(course_description):
     try:
+        if not GOOGLE_API_KEY:
+            return ""
+        # Lazy import, чтобы не тянуть тяжелые зависимости при деплое без ключей
+        import google.generativeai as genai  # type: ignore
+        genai.configure(api_key=GOOGLE_API_KEY)
         model = genai.GenerativeModel('gemini-1.5-flash')
         response = model.generate_content(course_description)
         if response.candidates:
