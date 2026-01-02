@@ -1,5 +1,5 @@
 
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 import os
 import requests
 from markupsafe import Markup
@@ -252,6 +252,73 @@ def logout():
     session.pop('user', None)
     flash('Вы вышли из системы.', 'info')
     return redirect(url_for('index'))
+
+# ==============================
+# AI Chatbot API
+# ==============================
+@app.route('/api/chat', methods=['POST'])
+def chat():
+    try:
+        data = request.get_json()
+        user_message = data.get('message', '').strip()
+        
+        if not user_message:
+            return jsonify({'error': 'No message provided'}), 400
+        
+        # Создаем контекст для AI
+        context = f"""You are a helpful AI assistant for NeuroLearn, an AI-powered learning platform. 
+You help users with questions about:
+- How to generate courses
+- What topics are available  
+- How the platform works
+- Learning tips and guidance
+- General educational questions
+
+User question: {user_message}
+
+Provide a friendly, concise, and helpful response (max 150 words)."""
+
+        # Используем Google Gemini для ответа
+        if GOOGLE_API_KEY:
+            try:
+                import google.generativeai as genai
+                genai.configure(api_key=GOOGLE_API_KEY)
+                model = genai.GenerativeModel('gemini-1.5-flash')
+                response = model.generate_content(context)
+                
+                if response.candidates:
+                    ai_response = response.candidates[0].content.parts[0].text
+                    return jsonify({'response': ai_response})
+            except Exception as e:
+                print(f"Gemini error: {e}")
+        
+        # Fallback
+        fallback = {
+            'generate': 'Enter a topic on the homepage, select your level, and click "Generate Course Now"!',
+            'topics': 'You can learn any topic! Try Python, marketing, data science, or web development.',
+            'free': 'NeuroLearn offers free and premium plans. Check our pricing page!',
+            'works': 'NeuroLearn uses AI to create structured course content instantly.',
+            'default': 'Ask me about generating courses, topics, or how NeuroLearn works!'
+        }
+        
+        msg_lower = user_message.lower()
+        key = 'default'
+        
+        if 'generate' in msg_lower or 'create' in msg_lower:
+            key = 'generate'
+        elif 'topic' in msg_lower or 'what' in msg_lower:
+            key = 'topics'
+        elif 'free' in msg_lower or 'price' in msg_lower:
+            key = 'free'
+        elif 'work' in msg_lower or 'ai' in msg_lower:
+            key = 'works'
+        
+        return jsonify({'response': fallback[key]})
+    
+    except Exception as e:
+        print(f"Chat error: {e}")
+        return jsonify({'error': 'Error occurred'}), 500
+
 
 # ==============================
 # Запуск приложения
