@@ -1,273 +1,637 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NeuroLearn — AI-Powered Learning Platform</title>
+    <title>NeuroLearn — Платформа AI-обучения | Создавай курсы мгновенно</title>
+    <meta name="description"
+        content="Революционная платформа для создания персонализированных курсов с помощью искусственного интеллекта. Учись быстрее и эффективнее с NeuroLearn.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/chatbot.css') }}">
 </head>
+
 <body>
-<!-- Navbar -->
-<header id="navbar">
-    <div class="navbar-container">
-        <h1 class="logo">✨ NeuroLearn</h1>
-        <nav id="nav-menu">
-            <a href="/">Home</a>
-            <a href="/about">About</a>
-            <a href="/courses">Courses</a>
-            <a href="/blog">Blog</a>
-            <a href="/prices">Pricing</a>
-            <a href="/contact">Contact</a>
-        </nav>
-        <div class="menu-toggle" id="menu-toggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </div>
-</header>
 
-<!-- Hero Section -->
-<section class="hero">
-    <div class="particles" id="particles"></div>
-    <div class="hero-content">
-        <h2>Learn Smarter with AI</h2>
-        <p class="lead">Generate personalized courses instantly with cutting-edge artificial intelligence. Your journey to knowledge starts here.</p>
-        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-            <a href="#generate-course" class="btn btn-primary btn-lg">
-                <span>🚀</span> Get Started
-            </a>
-            <a href="#features" class="btn btn-secondary btn-lg">
-                <span>📚</span> Learn More
-            </a>
+    <!-- Navbar -->
+    <header id="navbar">
+        <div class="navbar-container">
+            <h1 class="logo">
+                <a href="/" style="text-decoration: none; color: inherit;">✨ NeuroLearn</a>
+            </h1>
+            <nav id="nav-menu">
+                <a href="/">Главная</a>
+                <a href="/about">О платформе</a>
+                <a href="/courses">Курсы</a>
+                <a href="/blog">Блог</a>
+                <a href="/prices">Тарифы</a>
+                <a href="/contact">Контакты</a>
+            </nav>
+            <div class="menu-toggle" id="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
-    </div>
-</section>
+    </header>
 
-<!-- Course Generation Form Section -->
-<section id="generate-course" style="background: white;">
-    <div class="container">
-        <h2 class="section-title text-gradient">Generate Your Custom Course</h2>
-        <p class="text-center" style="max-width: 600px; margin: 0 auto var(--spacing-xl) auto; color: var(--text-secondary);">
-            Enter any topic and let our AI create a comprehensive, structured course tailored to your learning level.
-        </p>
-        
-        <form action="/generate" method="POST" style="max-width: 700px; margin: 0 auto;">
-            <div class="card" style="padding: 2.5rem;">
-                <div class="form-group">
-                    <label style="font-weight: 600; margin-bottom: 0.5rem; display: block;">📖 Course Topic</label>
-                    <input type="text" name="topic" class="form-control" placeholder="e.g., Python Programming, Digital Marketing, Quantum Physics" required>
-                </div>
-                
-                <div class="grid grid-2" style="margin-bottom: var(--spacing-md);">
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="particles" id="particles"></div>
+        <div class="hero-content">
+            <div
+                style="display: inline-block; background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 0.5rem 1.5rem; border-radius: var(--radius-full); margin-bottom: 1.5rem; border: 1px solid rgba(255,255,255,0.2);">
+                <span style="color: rgba(255,255,255,0.95); font-weight: 600; font-size: 0.9rem;">🚀 Новая эра
+                    образования уже здесь</span>
+            </div>
+            <h2>Учись быстрее с силой AI</h2>
+            <p class="lead">Создавай персонализированные курсы по любой теме за секунды. Наш искусственный интеллект
+                адаптируется под твой стиль обучения и помогает достигать целей быстрее.</p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem;">
+                <a href="#generate-course" class="btn btn-primary btn-lg">
+                    <span>✨</span> Создать курс бесплатно
+                </a>
+                <a href="#demo-courses" class="btn btn-secondary btn-lg">
+                    <span>📚</span> Посмотреть примеры
+                </a>
+            </div>
+            <div
+                style="display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; color: rgba(255,255,255,0.9); font-size: 0.9rem;">
+                <div><strong>10,000+</strong> курсов создано</div>
+                <div><strong>5,000+</strong> студентов</div>
+                <div><strong>4.9/5</strong> рейтинг</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Badges -->
+    <section style="background: white; padding: 2rem 1rem; border-bottom: 1px solid #e2e8f0;">
+        <div class="container">
+            <div style="text-align: center; color: var(--text-secondary); margin-bottom: 1.5rem; font-weight: 600;">Нам
+                доверяют</div>
+            <div
+                style="display: flex; justify-content: center; align-items: center; gap: 3rem; flex-wrap: wrap; opacity: 0.6;">
+                <div style="font-size: 1.5rem; font-weight: 700;">🏢 Tech Corp</div>
+                <div style="font-size: 1.5rem; font-weight: 700;">🎓 Edu Institute</div>
+                <div style="font-size: 1.5rem; font-weight: 700;">💼 Business Pro</div>
+                <div style="font-size: 1.5rem; font-weight: 700;">🚀 StartUp Hub</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Generator -->
+    <section id="generate-course"
+        style="background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%); padding: 5rem 2rem;">
+        <div class="container">
+            <div style="text-align: center; max-width: 800px; margin: 0 auto 3rem;">
+                <h2 class="section-title text-gradient" style="font-size: clamp(2rem, 4vw, 3rem);">Генератор курсов с AI
+                </h2>
+                <p style="font-size: 1.125rem; color: var(--text-secondary);">
+                    Просто введите тему, выберите уровень сложности, и наш AI создаст для вас структурированный курс с
+                    теорией, практикой и дополнительными материалами.
+                </p>
+            </div>
+
+            <form action="/generate" method="POST" style="max-width: 900px; margin: 0 auto;">
+                <div class="card" style="padding: 3rem;">
                     <div class="form-group">
-                        <label style="font-weight: 600; margin-bottom: 0.5rem; display: block;">🎯 Content Type</label>
-                        <select name="contentType" class="form-select">
-                            <option value="course">Full Course</option>
-                            <option value="lecture">Single Lecture</option>
-                            <option value="answer">Q&A Session</option>
-                        </select>
+                        <label style="font-weight: 700; margin-bottom: 0.75rem; display: block; font-size: 1.125rem;">📖
+                            О чем хотите узнать?</label>
+                        <input type="text" name="topic" class="form-control"
+                            placeholder="Например: Python для начинающих, Цифровой маркетинг, Квантовая физика, SEO оптимизация..."
+                            required style="font-size: 1.125rem; padding: 1.25rem 1.5rem;">
+                        <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-light);">💡 Совет: Чем
+                            конкретнее тема, тем лучше результат</p>
                     </div>
-                    
-                    <div class="form-group">
-                        <label style="font-weight: 600; margin-bottom: 0.5rem; display: block;">📊 Skill Level</label>
-                        <select name="userLevel" class="form-select">
-                            <option value="beginner">🌱 Beginner</option>
-                            <option value="intermediate">🚀 Intermediate</option>
-                            <option value="advanced">💎 Advanced</option>
-                        </select>
+
+                    <div class="grid grid-2" style="margin: 2rem 0;">
+                        <div class="form-group">
+                            <label style="font-weight: 600; margin-bottom: 0.5rem; display: block;">🎯 Тип
+                                контента</label>
+                            <select name="contentType" class="form-select" style="padding: 1rem 1.25rem;">
+                                <option value="course">Полный курс с модулями</option>
+                                <option value="lecture">Одна лекция</option>
+                                <option value="workshop">Практический воркшоп</option>
+                                <option value="answer">Ответ на вопрос</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label style="font-weight: 600; margin-bottom: 0.5rem; display: block;">📊 Ваш
+                                уровень</label>
+                            <select name="userLevel" class="form-select" style="padding: 1rem 1.25rem;">
+                                <option value="beginner">🌱 Новичок (с нуля)</option>
+                                <option value="intermediate">🚀 Средний (есть база)</option>
+                                <option value="advanced">💎 Продвинутый (эксперт)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg"
+                        style="width: 100%; font-size: 1.25rem; padding: 1.25rem;">
+                        <span>✨</span> Сгенерировать курс сейчас
+                    </button>
+
+                    <p style="text-align: center; margin-top: 1.5rem; color: var(--text-light); font-size: 0.9rem;">
+                        ⚡ Генерация занимает 5-10 секунд. Полностью бесплатно.
+                    </p>
+                </div>
+            </form>
+
+            <!-- Quick Topic Suggestions -->
+            <div style="max-width: 900px; margin: 2rem auto 0;">
+                <p style="text-align: center; color: var(--text-secondary); margin-bottom: 1rem; font-weight: 600;">
+                    Популярные темы:</p>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center;">
+                    <a href="/generate?topic=Python для начинающих" class="btn"
+                        style="background: white; color: var(--accent-purple); border: 2px solid var(--accent-purple); padding: 0.75rem 1.5rem;">🐍
+                        Python</a>
+                    <a href="/generate?topic=Цифровой маркетинг" class="btn"
+                        style="background: white; color: var(--accent-purple); border: 2px solid var(--accent-purple); padding: 0.75rem 1.5rem;">📱
+                        Digital Marketing</a>
+                    <a href="/generate?topic=Web разработка" class="btn"
+                        style="background: white; color: var(--accent-purple); border: 2px solid var(--accent-purple); padding: 0.75rem 1.5rem;">💻
+                        Web Dev</a>
+                    <a href="/generate?topic=Data Science" class="btn"
+                        style="background: white; color: var(--accent-purple); border: 2px solid var(--accent-purple); padding: 0.75rem 1.5rem;">📊
+                        Data Science</a>
+                    <a href="/generate?topic=UI/UX Design" class="btn"
+                        style="background: white; color: var(--accent-purple); border: 2px solid var(--accent-purple); padding: 0.75rem 1.5rem;">🎨
+                        UI/UX</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Courses -->
+    <section id="demo-courses" style="background: white; padding: 5rem 2rem;">
+        <div class="container">
+            <h2 class="section-title">Примеры сгенерированных курсов</h2>
+            <p
+                style="text-align: center; max-width: 700px; margin: 0 auto 3rem; font-size: 1.125rem; color: var(--text-secondary);">
+                Посмотрите, какие курсы создали наши пользователи
+            </p>
+
+            <div class="grid grid-3">
+                <div class="card" style="cursor: pointer; transition: all 0.3s ease;"
+                    onclick="window.location.href='/generate?topic=Python для начинающих'">
+                    <div
+                        style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); height: 8rem; border-radius: var(--radius-md); margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center; font-size: 3rem;">
+                        🐍
+                    </div>
+                    <h3 style="margin-bottom: 0.75rem;">Python для начинающих</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 1rem;">Полный курс по Python с нуля до
+                        создания первых проектов. 12 модулей, 48 уроков.</p>
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+                        <span
+                            style="background: #e2e8f0; padding: 0.25rem 0.75rem; border-radius: var(--radius-full); font-size: 0.85rem;">Программирование</span>
+                        <span
+                            style="background: #e2e8f0; padding: 0.25rem 0.75rem; border-radius: var(--radius-full); font-size: 0.85rem;">Новичок</span>
+                    </div>
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; border-top: 1px solid #e2e8f0;">
+                        <span style="color: var(--text-light); font-size: 0.9rem;">⏱️ ~20 часов</span>
+                        <span style="color: var(--accent-purple); font-weight: 600;">Открыть →</span>
                     </div>
                 </div>
-                
-                <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
-                    <span>✨</span> Generate Course Now
+
+                <div class="card" style="cursor: pointer;"
+                    onclick="window.location.href='/generate?topic=Цифровой маркетинг'">
+                    <div
+                        style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); height: 8rem; border-radius: var(--radius-md); margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center; font-size: 3rem;">
+                        📱
+                    </div>
+                    <h3 style="margin-bottom: 0.75rem;">Цифровой маркетинг 2024</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 1rem;">Современные стратегии продвижения в
+                        digital. SMM, SEO, контекст, аналитика.</p>
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+                        <span
+                            style="background: #e2e8f0; padding: 0.25rem 0.75rem; border-radius: var(--radius-full); font-size: 0.85rem;">Маркетинг</span>
+                        <span
+                            style="background: #e2e8f0; padding: 0.25rem 0.75rem; border-radius: var(--radius-full); font-size: 0.85rem;">Средний</span>
+                    </div>
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; border-top: 1px solid #e2e8f0;">
+                        <span style="color: var(--text-light); font-size: 0.9rem;">⏱️ ~15 часов</span>
+                        <span style="color: var(--accent-pink); font-weight: 600;">Открыть →</span>
+                    </div>
+                </div>
+
+                <div class="card" style="cursor: pointer;"
+                    onclick="window.location.href='/generate?topic=UI/UX Design'">
+                    <div
+                        style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); height: 8rem; border-radius: var(--radius-md); margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center; font-size: 3rem;">
+                        🎨
+                    </div>
+                    <h3 style="margin-bottom: 0.75rem;">UI/UX Design Основы</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 1rem;">Создание современных интерфейсов.
+                        Figma, принципы дизайна, user research.</p>
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+                        <span
+                            style="background: #e2e8f0; padding: 0.25rem 0.75rem; border-radius: var(--radius-full); font-size: 0.85rem;">Дизайн</span>
+                        <span
+                            style="background: #e2e8f0; padding: 0.25rem 0.75rem; border-radius: var(--radius-full); font-size: 0.85rem;">Новичок</span>
+                    </div>
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; border-top: 1px solid #e2e8f0;">
+                        <span style="color: var(--text-light); font-size: 0.9rem;">⏱️ ~18 часов</span>
+                        <span style="color: var(--accent-blue); font-weight: 600;">Открыть →</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="/courses" class="btn btn-primary btn-lg">
+                    <span>📚</span> Смотреть все курсы
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" style="background: var(--bg-secondary); padding: 5rem 2rem;">
+        <div class="container">
+            <h2 class="section-title">Почему NeuroLearn?</h2>
+            <p
+                style="text-align: center; max-width: 700px; margin: 0 auto 3rem; font-size: 1.125rem; color: var(--text-secondary);">
+                Мы используем передовые технологии AI для создания лучшего образовательного опыта
+            </p>
+
+            <div class="grid grid-3">
+                <div class="card">
+                    <div class="card-icon">🧠</div>
+                    <h3>Искусственный интеллект</h3>
+                    <p>Наш AI анализирует миллионы образовательных материалов и создает персонализированные курсы,
+                        адаптированные под ваш уровень.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">⚡</div>
+                    <h3>Мгновенная генерация</h3>
+                    <p>Получите готовый структурированный курс за 5-10 секунд. Никакого ожидания - только чистое знание.
+                    </p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📚</div>
+                    <h3>Структурированный контент</h3>
+                    <p>Каждый курс разбит на модули и уроки с теорией, практикой и дополнительными ресурсами для
+                        глубокого понимания.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🎥</div>
+                    <h3>Мультимедиа</h3>
+                    <p>Автоматически подбираем видео, изображения и полезные ссылки для обогащения вашего обучения.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🎯</div>
+                    <h3>Адаптивность</h3>
+                    <p>Курсы адаптируются под ваш уровень - от новичка до эксперта. Учитесь в своем темпе.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💡</div>
+                    <h3>Экспертное качество</h3>
+                    <p>Качество материалов соответствует лучшим курсам от ведущих образовательных платформ мира.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section style="background: white; padding: 5rem 2rem;">
+        <div class="container">
+            <h2 class="section-title">Как это работает</h2>
+            <div style="max-width: 1000px; margin: 0 auto;">
+                <div class="grid grid-3">
+                    <div style="text-align: center;">
+                        <div
+                            style="width: 80px; height: 80px; background: var(--primary-gradient); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2rem; color: white; font-weight: 800;">
+                            1</div>
+                        <h3 style="margin-bottom: 1rem;">Введите тему</h3>
+                        <p style="color: var(--text-secondary);">Напишите, что хотите изучить - от программирования до
+                            кулинарии. Любая тема возможна!</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <div
+                            style="width: 80px; height: 80px; background: var(--secondary-gradient); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2rem; color: white; font-weight: 800;">
+                            2</div>
+                        <h3 style="margin-bottom: 1rem;">AI создаст курс</h3>
+                        <p style="color: var(--text-secondary);">Наш алгоритм проанализирует тему и создаст
+                            структурированный курс за секунды.</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <div
+                            style="width: 80px; height: 80px; background: var(--success-gradient); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2rem; color: white; font-weight: 800;">
+                            3</div>
+                        <h3 style="margin-bottom: 1rem;">Начните учиться</h3>
+                        <p style="color: var(--text-secondary);">Получите доступ к материалам, видео, упражнениям и
+                            начните свой путь к знаниям!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section style="background: var(--primary-gradient); color: white; padding: 4rem 2rem;">
+        <div class="container">
+            <div class="grid grid-4" style="text-align: center;">
+                <div class="animate-on-scroll">
+                    <h2 style="font-size: 3.5rem; margin-bottom: 0.5rem; color: white; font-weight: 900;">10K+</h2>
+                    <p style="color: rgba(255,255,255,0.9); margin: 0; font-size: 1.125rem;">Курсов создано</p>
+                </div>
+                <div class="animate-on-scroll">
+                    <h2 style="font-size: 3.5rem; margin-bottom: 0.5rem; color: white; font-weight: 900;">5K+</h2>
+                    <p style="color: rgba(255,255,255,0.9); margin: 0; font-size: 1.125rem;">Активных студентов</p>
+                </div>
+                <div class="animate-on-scroll">
+                    <h2 style="font-size: 3.5rem; margin-bottom: 0.5rem; color: white; font-weight: 900;">150+</h2>
+                    <p style="color: rgba(255,255,255,0.9); margin: 0; font-size: 1.125rem;">Тем и категорий</p>
+                </div>
+                <div class="animate-on-scroll">
+                    <h2 style="font-size: 3.5rem; margin-bottom: 0.5rem; color: white; font-weight: 900;">4.9</h2>
+                    <p style="color: rgba(255,255,255,0.9); margin: 0; font-size: 1.125rem;">Средний рейтинг ⭐</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" style="background: white; padding: 5rem 2rem;">
+        <div class="container">
+            <h2 class="section-title">Отзывы наших студентов</h2>
+            <div class="grid grid-3">
+                <div class="card">
+                    <div style="display: flex; gap: 0.5rem; color: gold; font-size: 1.25rem; margin-bottom: 1rem;">
+                        ⭐⭐⭐⭐⭐
+                    </div>
+                    <p style="font-style: italic; margin-bottom: 1.5rem; font-size: 1.05rem;">"NeuroLearn полностью
+                        изменил мой подход к обучению. AI-генератор создает невероятно детальные курсы, которые легко
+                        усваиваются. Очень рекомендую!"</p>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div
+                            style="width: 50px; height: 50px; border-radius: 50%; background: var(--primary-gradient); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1.25rem;">
+                            S</div>
+                        <div>
+                            <div style="font-weight: 600;">Сара Иванова</div>
+                            <div style="color: var(--text-light); font-size: 0.9rem;">Студентка Computer Science</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div style="display: flex; gap: 0.5rem; color: gold; font-size: 1.25rem; margin-bottom: 1rem;">
+                        ⭐⭐⭐⭐⭐
+                    </div>
+                    <p style="font-style: italic; margin-bottom: 1.5rem; font-size: 1.05rem;">"Как преподаватель, я
+                        использую NeuroLearn для создания планов уроков. Экономит мне часы работы. Контент всегда
+                        актуальный и структурированный!"</p>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div
+                            style="width: 50px; height: 50px; border-radius: 50%; background: var(--secondary-gradient); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1.25rem;">
+                            M</div>
+                        <div>
+                            <div style="font-weight: 600;">Михаил Петров</div>
+                            <div style="color: var(--text-light); font-size: 0.9rem;">Учитель в школе программирования
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div style="display: flex; gap: 0.5rem; color: gold; font-size: 1.25rem; margin-bottom: 1rem;">
+                        ⭐⭐⭐⭐⭐
+                    </div>
+                    <p style="font-style: italic; margin-bottom: 1.5rem; font-size: 1.05rem;">"Идеально для
+                        корпоративного обучения. Быстро, настраиваемо и профессионально. Наша команда в восторге от
+                        качества материалов!"</p>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div
+                            style="width: 50px; height: 50px; border-radius: 50%; background: var(--success-gradient); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1.25rem;">
+                            D</div>
+                        <div>
+                            <div style="font-weight: 600;">Дмитрий Соколов</div>
+                            <div style="color: var(--text-light); font-size: 0.9rem;">HR директор Tech Company</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section style="background: var(--secondary-gradient); color: white; padding: 5rem 2rem; text-align: center;">
+        <div class="container" style="max-width: 900px;">
+            <h2 style="color: white; font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1.5rem;">Готовы начать
+                обучение?</h2>
+            <p style="font-size: 1.5rem; color: rgba(255,255,255,0.95); margin-bottom: 2.5rem; line-height: 1.6;">
+                Присоединяйтесь к тысячам студентов, которые уже достигают своих целей благодаря AI-образованию от
+                NeuroLearn
+            </p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="#generate-course" class="btn"
+                    style="background: white; color: var(--accent-pink); padding: 1.5rem 3rem; font-size: 1.375rem; font-weight: 700;">
+                    <span>🎓</span> Создать первый курс бесплатно
+                </a>
+                <a href="/prices" class="btn"
+                    style="background: rgba(255,255,255,0.15); color: white; border: 2px solid white; padding: 1.5rem 3rem; font-size: 1.375rem; font-weight: 700;">
+                    <span>💎</span> Посмотреть тарифы
+                </a>
+            </div>
+            <p style="margin-top: 2rem; font-size: 0.95rem; color: rgba(255,255,255,0.8);">
+                ✅ Кредитная карта не требуется • ✅ Доступ мгновенно • ✅ Отменить можно в любой момент
+            </p>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section style="background: white; padding: 5rem 2rem;">
+        <div class="container" style="max-width: 800px;">
+            <h2 class="section-title">Частые вопросы</h2>
+            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                <details class="card" style="padding: 1.5rem 2rem; cursor: pointer;">
+                    <summary
+                        style="font-weight: 700; font-size: 1.125rem; margin-bottom: 0; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                        Насколько точен AI при создании курсов?
+                        <span style="font-size: 1.5rem;">+</span>
+                    </summary>
+                    <p
+                        style="margin-top: 1rem; color: var(--text-secondary); padding-top: 1rem; border-top: 1px solid #e2e8f0;">
+                        Наш AI обучен на миллионах образовательных материалов и постоянно совершенствуется. Точность
+                        составляет около 95%, и мы регулярно обновляем модель для повышения качества.
+                    </p>
+                </details>
+
+                <details class="card" style="padding: 1.5rem 2rem; cursor: pointer;">
+                    <summary
+                        style="font-weight: 700; font-size: 1.125rem; margin-bottom: 0; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                        Можно ли использовать бесплатно?
+                        <span style="font-size: 1.5rem;">+</span>
+                    </summary>
+                    <p
+                        style="margin-top: 1rem; color: var(--text-secondary); padding-top: 1rem; border-top: 1px solid #e2e8f0;">
+                        Да! У нас есть бесплатный тариф, который позволяет генерировать до 5 курсов в месяц. Для
+                        безлимитного доступа и дополнительных функций можно перейти на Pro версию.
+                    </p>
+                </details>
+
+                <details class="card" style="padding: 1.5rem 2rem; cursor: pointer;">
+                    <summary
+                        style="font-weight: 700; font-size: 1.125rem; margin-bottom: 0; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                        Какие темы можно изучать?
+                        <span style="font-size: 1.5rem;">+</span>
+                    </summary>
+                    <p
+                        style="margin-top: 1rem; color: var(--text-secondary); padding-top: 1rem; border-top: 1px solid #e2e8f0;">
+                        Абсолютно любые! От программирования и дизайна до кулинарии и йоги. Наш AI может создать курс по
+                        любой теме, которую вы укажете.
+                    </p>
+                </details>
+
+                <details class="card" style="padding: 1.5rem 2rem; cursor: pointer;">
+                    <summary
+                        style="font-weight: 700; font-size: 1.125rem; margin-bottom: 0; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                        Как долго генерируется курс?
+                        <span style="font-size: 1.5rem;">+</span>
+                    </summary>
+                    <p
+                        style="margin-top: 1rem; color: var(--text-secondary); padding-top: 1rem; border-top: 1px solid #e2e8f0;">
+                        Обычно 5-10 секунд. Сложные темы могут занять до 15 секунд. Мы постоянно оптимизируем скорость
+                        генерации.
+                    </p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 3rem;">
+                <div>
+                    <h2 class="logo" style="margin-bottom: 1rem; color: white; -webkit-text-fill-color: white;">✨
+                        NeuroLearn</h2>
+                    <p style="color: rgba(255,255,255,0.8); line-height: 1.8;">Революционная платформа для AI-обучения.
+                        Создавай курсы мгновенно и учись эффективнее.</p>
+                    <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                        <a href="#"
+                            style="width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">📱</a>
+                        <a href="#"
+                            style="width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">🐦</a>
+                        <a href="#"
+                            style="width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">💼</a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 style="color: white; margin-bottom: 1rem;">Продукт</h4>
+                    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                        <a href="/courses" style="color: rgba(255,255,255,0.8);">Курсы</a>
+                        <a href="/prices" style="color: rgba(255,255,255,0.8);">Тарифы</a>
+                        <a href="#features" style="color: rgba(255,255,255,0.8);">Возможности</a>
+                        <a href="/blog" style="color: rgba(255,255,255,0.8);">Блог</a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 style="color: white; margin-bottom: 1rem;">Компания</h4>
+                    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                        <a href="/about" style="color: rgba(255,255,255,0.8);">О нас</a>
+                        <a href="/contact" style="color: rgba(255,255,255,0.8);">Контакты</a>
+                        <a href="#" style="color: rgba(255,255,255,0.8);">Карьера</a>
+                        <a href="#" style="color: rgba(255,255,255,0.8);">Пресс-кит</a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 style="color: white; margin-bottom: 1rem;">Поддержка</h4>
+                    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                        <a href="#" style="color: rgba(255,255,255,0.8);">Помощь</a>
+                        <a href="#" style="color: rgba(255,255,255,0.8);">Документация</a>
+                        <a href="#" style="color: rgba(255,255,255,0.8);">API</a>
+                        <a href="#" style="color: rgba(255,255,255,0.8);">Статус</a>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                style="padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                <p style="color: rgba(255,255,255,0.7); margin: 0;">
+                    © 2024 NeuroLearn. Все права защищены. Сделано с ❤️ для учащихся по всему миру.
+                </p>
+                <div style="display: flex; gap: 2rem;">
+                    <a href="#" style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">Политика конфиденциальности</a>
+                    <a href="#" style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">Условия использования</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AI Chatbot -->
+    <div id="chatbot-container">
+        <button id="chatbot-toggle" class="chatbot-toggle">
+            <span class="chat-icon">💬</span>
+        </button>
+        <div id="chatbot-window" class="chatbot-window">
+            <div class="chatbot-header">
+                <div>
+                    <h4 style="margin: 0; color: white; font-size: 1.125rem;">🤖 AI Ассистент</h4>
+                    <p style="margin: 0; font-size: 0.8rem; color: rgba(255,255,255,0.8);">Спроси меня о чём угодно!</p>
+                </div>
+                <button id="chatbot-close"
+                    style="background: none; border: none; color: white; font-size: 1.75rem; cursor: pointer; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 4px; transition: background 0.2s;"
+                    onmouseover="this.style.background='rgba(255,255,255,0.1)'"
+                    onmouseout="this.style.background='none'">×</button>
+            </div>
+            <div id="chatbot-messages" class="chatbot-messages">
+                <div class="message bot-message">
+                    <strong>AI Ассистент</strong>
+                    <p>Привет! 👋 Я твой персональный помощник в обучении. Задай мне любой вопрос о курсах, темах или о
+                        том, как работает NeuroLearn!</p>
+                </div>
+            </div>
+            <form id="chatbot-form" class="chatbot-input">
+                <input type="text" id="chatbot-input" placeholder="Напиши свой вопрос..." required>
+                <button type="submit">
+                    <span>➤</span>
                 </button>
-            </div>
-        </form>
-    </div>
-</section>
-
-<!-- Features Section -->
-<section id="features">
-    <div class="container">
-        <h2 class="section-title">Powerful Features</h2>
-        <div class="grid grid-3">
-            <div class="card">
-                <div class="card-icon">🧠</div>
-                <h3>AI-Powered Generation</h3>
-                <p>Advanced AI creates personalized courses in seconds, adapting to your unique learning style and goals.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">📚</div>
-                <h3>Structured Content</h3>
-                <p>Every course is organized into modules, lessons, and practice exercises for effective learning.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">🎥</div>
-                <h3>Multimedia Rich</h3>
-                <p>Enhance learning with curated videos, images, and additional resources from trusted sources.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">⚡</div>
-                <h3>Instant Generation</h3>
-                <p>Get your course in seconds. No waiting, no manual work - just pure knowledge delivered fast.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">🎯</div>
-                <h3>Adaptive Learning</h3>
-                <p>Courses adapt to your skill level, whether you're a beginner or an advanced learner.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">💡</div>
-                <h3>Expert Quality</h3>
-                <p>Content quality rivals expert educators, ensuring you learn from the best material available.</p>
-            </div>
+            </form>
         </div>
     </div>
-</section>
 
-<!-- How It Works Section -->
-<section id="how-it-works" style="background: white;">
-    <div class="container">
-        <h2 class="section-title">How It Works</h2>
-        <div class="grid grid-3">
-            <div class="card" style="text-align: center;">
-                <div style="font-size: 4rem; margin-bottom: 1rem;">1️⃣</div>
-                <h3>Enter Your Topic</h3>
-                <p>Type in what you want to learn - from coding to cooking, anything is possible.</p>
-            </div>
-            <div class="card" style="text-align: center;">
-                <div style="font-size: 4rem; margin-bottom: 1rem;">2️⃣</div>
-                <h3>AI Generates Content</h3>
-                <p>Our advanced AI processes your request and creates a tailored course in seconds.</p>
-            </div>
-            <div class="card" style="text-align: center;">
-                <div style="font-size: 4rem; margin-bottom: 1rem;">3️⃣</div>
-                <h3>Start Learning</h3>
-                <p>Access your personalized course with videos, exercises, and resources instantly.</p>
-            </div>
-        </div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
+
+    <!-- Cookie Notice (optional) -->
+    <div id="cookie-notice"
+        style="position: fixed; bottom: 2rem; left: 2rem; right: 2rem; max-width: 500px; background: white; padding: 1.5rem; border-radius: var(--radius-lg); box-shadow: var(--shadow-2xl); display: none; z-index: 9998;">
+        <p style="margin-bottom: 1rem; font-size: 0.95rem;">🍪 Мы используем cookies для улучшения вашего опыта.
+            Продолжая использовать сайт, вы соглашаетесь с нашей <a href="#"
+                style="color: var(--accent-purple); font-weight: 600;">политикой конфиденциальности</a>.</p>
+        <button onclick="document.getElementById('cookie-notice').style.display='none'" class="btn btn-primary"
+            style="width: 100%;">Принять</button>
     </div>
-</section>
 
-<!-- Stats Section -->
-<section style="background: var(--primary-gradient); color: white;">
-    <div class="container">
-        <div class="grid grid-4" style="text-align: center;">
-            <div>
-                <h2 style="font-size: 3rem; margin-bottom: 0.5rem; color: white;">10K+</h2>
-                <p style="color: rgba(255,255,255,0.9); margin: 0;">Courses Generated</p>
-            </div>
-            <div>
-                <h2 style="font-size: 3rem; margin-bottom: 0.5rem; color: white;">5K+</h2>
-                <p style="color: rgba(255,255,255,0.9); margin: 0;">Happy Learners</p>
-            </div>
-            <div>
-                <h2 style="font-size: 3rem; margin-bottom: 0.5rem; color: white;">100+</h2>
-                <p style="color: rgba(255,255,255,0.9); margin: 0;">Topics Covered</p>
-            </div>
-            <div>
-                <h2 style="font-size: 3rem; margin-bottom: 0.5rem; color: white;">24/7</h2>
-                <p style="color: rgba(255,255,255,0.9); margin: 0;">AI Support</p>
-            </div>
-        </div>
-    </div>
-</section>
+    <script>
+        // Show cookie notice after 2 seconds
+        setTimeout(() => {
+            if (!localStorage.getItem('cookieAccepted')) {
+                document.getElementById('cookie-notice').style.display = 'block';
+            }
+        }, 2000);
 
-<!-- Testimonials Section -->
-<section id="testimonials" style="background: white;">
-    <div class="container">
-        <h2 class="section-title">What Our Users Say</h2>
-        <div class="grid grid-3">
-            <div class="card">
-                <div style="color: gold; font-size: 1.5rem; margin-bottom: 1rem;">⭐⭐⭐⭐⭐</div>
-                <p style="font-style: italic; margin-bottom: 1rem;">"NeuroLearn transformed how I study. The AI-generated courses are incredibly detailed and easy to follow!"</p>
-                <div style="font-weight: 600;">— Sarah J.</div>
-                <div style="color: var(--text-light); font-size: 0.9rem;">Computer Science Student</div>
-            </div>
-            <div class="card">
-                <div style="color: gold; font-size: 1.5rem; margin-bottom: 1rem;">⭐⭐⭐⭐⭐</div>
-                <p style="font-style: italic; margin-bottom: 1rem;">"As an educator, this tool saves me hours. I can create comprehensive lesson plans in minutes!"</p>
-                <div style="font-weight: 600;">— Michael T.</div>
-                <div style="color: var(--text-light); font-size: 0.9rem;">High School Teacher</div>
-            </div>
-            <div class="card">
-                <div style="color: gold; font-size: 1.5rem; margin-bottom: 1rem;">⭐⭐⭐⭐⭐</div>
-                <p style="font-style: italic; margin-bottom: 1rem;">"Perfect for corporate training. Fast, customizable, and professional quality content every time."</p>
-                <div style="font-weight: 600;">— David L.</div>
-                <div style="color: var(--text-light); font-size: 0.9rem;">Training Manager</div>
-            </div>
-        </div>
-    </div>
-</section>
+        // FAQ toggle icons
+        document.querySelectorAll('details').forEach(detail => {
+            detail.addEventListener('toggle', () => {
+                const icon = detail.querySelector('summary span');
+                icon.textContent = detail.open ? '−' : '+';
+            });
+        });
+    </script>
 
-<!-- CTA Section -->
-<section style="background: var(--secondary-gradient); color: white; text-align: center;">
-    <div class="container" style="max-width: 800px;">
-        <h2 style="color: white; font-size: clamp(2rem, 4vw, 3rem);">Ready to Start Learning?</h2>
-        <p style="font-size: 1.25rem; color: rgba(255,255,255,0.95); margin-bottom: 2rem;">
-            Join thousands of learners who are achieving their goals with AI-powered education.
-        </p>
-        <a href="#generate-course" class="btn" style="background: white; color: var(--accent-pink); padding: 1.25rem 3rem; font-size: 1.25rem;">
-            <span>🎓</span> Create Your Course Now
-        </a>
-    </div>
-</section>
-
-<!-- Footer -->
-<footer>
-    <div class="container">
-        <div style="margin-bottom: 2rem;">
-            <h2 class="logo" style="margin-bottom: 1rem; color: white; -webkit-text-fill-color: white;">✨ NeuroLearn</h2>
-            <p>Empowering learners worldwide with AI-driven education</p>
-        </div>
-        <div style="display: flex; justify-content: center; gap: 2rem; margin-bottom: 2rem; flex-wrap: wrap;">
-            <a href="/" style="color: rgba(255,255,255,0.8); hover: color: white;">Home</a>
-            <a href="/about" style="color: rgba(255,255,255,0.8);">About</a>
-            <a href="/courses" style="color: rgba(255,255,255,0.8);">Courses</a>
-            <a href="/blog" style="color: rgba(255,255,255,0.8);">Blog</a>
-            <a href="/prices" style="color: rgba(255,255,255,0.8);">Pricing</a>
-            <a href="/contact" style="color: rgba(255,255,255,0.8);">Contact</a>
-        </div>
-        <p style="padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);">
-            © 2024 NeuroLearn. All rights reserved. Made with ❤️ for learners everywhere.
-        </p>
-    </div>
-</footer>
-
-<!-- AI Chat Bot -->
-<div id="chatbot-container">
-    <button id="chatbot-toggle" class="chatbot-toggle">
-        <span class="chat-icon">💬</span>
-    </button>
-    <div id="chatbot-window" class="chatbot-window">
-        <div class="chatbot-header">
-            <div>
-                <h4 style="margin: 0; color: white;">🤖 AI Assistant</h4>
-                <p style="margin: 0; font-size: 0.8rem; color: rgba(255,255,255,0.8);">Ask me anything!</p>
-            </div>
-            <button id="chatbot-close" style="background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer;">×</button>
-        </div>
-        <div id="chatbot-messages" class="chatbot-messages">
-            <div class="message bot-message">
-                <strong>AI Assistant</strong>
-                <p>Hello! 👋 I'm your AI learning assistant. Ask me anything about courses, topics, or how NeuroLearn works!</p>
-            </div>
-        </div>
-        <form id="chatbot-form" class="chatbot-input">
-            <input type="text" id="chatbot-input" placeholder="Type your question..." required>
-            <button type="submit">
-                <span>➤</span>
-            </button>
-        </form>
-    </div>
-</div>
-
-<script src="{{ url_for('static', filename='js/main.js') }}"></script>
-<script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
 </body>
+
 </html>

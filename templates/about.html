@@ -1,76 +1,285 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>О проекте — NeuroLearn</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <title>О платформе NeuroLearn | AI-образование нового поколения</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
 </head>
+
 <body>
-<!-- Navbar -->
-<header class="bg-primary text-white py-3">
-  <div class="container d-flex justify-content-between align-items-center">
-    <h1 class="logo">NeuroLearn</h1>
-    <nav>
-      <a href="/" class="me-3">Home</a>
-      <a href="/about" class="me-3">About Us</a>
-      <a href="/courses" class="me-3">Courses</a>
-      <a href="/blog" class="me-3">Blog</a>
-      <a href="/prices" class="me-3">Prices</a>
-      <a href="/contact">Contact</a>
-    </nav>
-    </div>
-</header>
 
-<!-- About Section -->
-<section id="about" class="about-section">
-  <div class="container">
-    <div class="text-center mb-5">
-      <h2>О проекте NeuroLearn</h2>
-      <p>Платформа, которая изменяет подход к обучению с помощью искусственного интеллекта.</p>
-    </div>
-    <div class="row align-items-center">
-      <div class="col-md-6">
-        <img src="{{ url_for('static', filename='images/about_us.jpg') }}" alt="О проекте NeuroLearn" class="img-fluid">
-      </div>
-      <div class="col-md-6">
-        <ul>
-          <li>
-            <i class="bi bi-rocket-fill text-warning"></i>
-            Создание курсов по запросу пользователя.
-          </li>
-          <li>
-            <i class="bi bi-play-circle-fill text-warning"></i>
-            Включение мультимедиа, таких как видео и полезные ссылки.
-          </li>
-          <li>
-            <i class="bi bi-gear-fill text-warning"></i>
-            Гибкая настройка структуры и уровня сложности.
-          </li>
-        </ul>
-        <a href="/learn-more" class="btn">Узнать больше</a>
+  <!-- Navbar -->
+  <header id="navbar">
+    <div class="navbar-container">
+      <h1 class="logo"><a href="/" style="text-decoration: none; color: inherit;">✨ NeuroLearn</a></h1>
+      <nav id="nav-menu">
+        <a href="/">Главная</a>
+        <a href="/about">О платформе</a>
+        <a href="/courses">Курсы</a>
+        <a href="/blog">Блог</a>
+        <a href="/prices">Тарифы</a>
+        <a href="/contact">Контакты</a>
+      </nav>
+      <div class="menu-toggle" id="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
     </div>
-  </div>
-</section>
+  </header>
 
-<!-- Call to Action Section -->
-<section id="cta">
-  <div class="container">
-    <h3>Присоединяйтесь к нашему сообществу</h3>
-    <p>Мы стремимся сделать обучение доступным, удобным и увлекательным для каждого!</p>
-    <a href="/signup" class="btn">Попробовать бесплатно</a>
-  </div>
-</section>
+  <!-- Hero -->
+  <section
+    style="background: var(--primary-gradient); color: white; padding: 10rem 2rem 6rem; margin-top: 5rem; text-align: center;">
+    <div class="container" style="max-width: 900px;">
+      <h1 style="font-size: clamp(2.5rem, 6vw, 4.5rem); margin-bottom: 1.5rem; color: white;">О платформе NeuroLearn
+      </h1>
+      <p style="font-size: 1.5rem; color: rgba(255,255,255,0.95); line-height: 1.6;">
+        Мы создаем будущее образования с помощью искусственного интеллекта
+      </p>
+    </div>
+  </section>
 
-<!-- Footer -->
-<footer class="bg-primary text-white text-center py-3">
-  <p>&copy; 2024 NeuroLearn. Все права защищены.</p>
-</footer>
+  <!-- Mission -->
+  <section style="background: white; padding: 5rem 2rem;">
+    <div class="container" style="max-width: 1000px;">
+      <div class="grid grid-2" style="align-items: center; gap: 4rem;">
+        <div>
+          <div
+            style="display: inline-block; background: var(--accent-purple); color: white; padding: 0.5rem 1.5rem; border-radius: var(--radius-full); margin-bottom: 1.5rem; font-weight: 600;">
+            Наша миссия</div>
+          <h2 style="font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1.5rem;">Сделать качественное образование
+            доступным каждому</h2>
+          <p style="font-size: 1.125rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 1.5rem;">
+            В NeuroLearn мы верим, что каждый человек заслуживает доступа к качественному образованию. С помощью
+            передовых технологий искусственного интеллекта мы устраняем барьеры и делаем обучение персонализированным,
+            эффективным и увлекательным.
+          </p>
+          <p style="font-size: 1.125rem; color: var(--text-secondary); line-height: 1.8;">
+            Наша платформа использует самые современные алгоритмы машинного обучения для создания курсов, которые
+            адаптируются под индивидуальные потребности каждого студента.
+          </p>
+        </div>
+        <div
+          style="background: linear-gradient(135deg, #667eea20 0%, #764ba220 100%); border-radius: var(--radius-xl); padding: 3rem; text-align: center;">
+          <div style="font-size: 8rem; margin-bottom: 1rem;">🎯</div>
+          <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Наша цель</h3>
+          <p style="font-size: 1.125rem; color: var(--text-secondary);">Обучить 1 миллион человек к 2025 году</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Values -->
+  <section style="background: var(--bg-secondary); padding: 5rem 2rem;">
+    <div class="container">
+      <h2 class="section-title">Наши ценности</h2>
+      <div class="grid grid-3">
+        <div class="card" style="text-align: center;">
+          <div style="font-size: 4rem; margin-bottom: 1rem;">💡</div>
+          <h3>Инновации</h3>
+          <p>Мы постоянно исследуем новые технологии и методы обучения, чтобы предоставлять лучший образовательный опыт.
+          </p>
+        </div>
+        <div class="card" style="text-align: center;">
+          <div style="font-size: 4rem; margin-bottom: 1rem;">🤝</div>
+          <h3>Доступность</h3>
+          <p>Образование должно быть доступно всем. Мы стремимся сделать его максимально простым и понятным.</p>
+        </div>
+        <div class="card" style="text-align: center;">
+          <div style="font-size: 4rem; margin-bottom: 1rem;">⚡</div>
+          <h3>Эффективность</h3>
+          <p>Время ценно. Наши курсы оптимизированы для максимально быстрого и качественного обучения.</p>
+        </div>
+        <div class="card" style="text-align: center;">
+          <div style="font-size: 4rem; margin-bottom: 1rem;">🎨</div>
+          <h3>Креативность</h3>
+          <p>Мы поощряем творческий подход к обучению и создаем увлекательные образовательные материалы.</p>
+        </div>
+        <div class="card" style="text-align: center;">
+          <div style="font-size: 4rem; margin-bottom: 1rem;">🌍</div>
+          <h3>Глобальность</h3>
+          <p>Мы работаем для людей по всему миру, создавая образовательный контент на разных языках.</p>
+        </div>
+        <div class="card" style="text-align: center;">
+          <div style="font-size: 4rem; margin-bottom: 1rem;">📈</div>
+          <h3>Рост</h3>
+          <p>Мы помогаем нашим студентам постоянно расти и развиваться, достигая новых высот.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section style="background: white; padding: 5rem 2rem;">
+    <div class="container">
+      <h2 class="section-title">Команда мечты</h2>
+      <p
+        style="text-align: center; max-width: 700px; margin: 0 auto 3rem; font-size: 1.125rem; color: var(--text-secondary);">
+        Наша команда состоит из экспертов в области AI, образования и технологий
+      </p>
+      <div class="grid grid-4">
+        <div class="card" style="text-align: center;">
+          <div
+            style="width: 120px; height: 120px; border-radius: 50%; background: var(--primary-gradient); margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem; font-weight: 800;">
+            A</div>
+          <h3 style="margin-bottom: 0.5rem;">Александр Мурдасов</h3>
+          <p style="color: var(--accent-purple); font-weight: 600; margin-bottom: 0.75rem;">CEO & Founder</p>
+          <p style="font-size: 0.95rem; color: var(--text-secondary);">Эксперт в AI и образовательных технологиях</p>
+        </div>
+        <div class="card" style="text-align: center;">
+          <div
+            style="width: 120px; height: 120px; border-radius: 50%; background: var(--secondary-gradient); margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem; font-weight: 800;">
+            E</div>
+          <h3 style="margin-bottom: 0.5rem;">Елена Смирнова</h3>
+          <p style="color: var(--accent-pink); font-weight: 600; margin-bottom: 0.75rem;">CTO</p>
+          <p style="font-size: 0.95rem; color: var(--text-secondary);">PhD в Computer Science, ML специалист</p>
+        </div>
+        <div class="card" style="text-align: center;">
+          <div
+            style="width: 120px; height: 120px; border-radius: 50%; background: var(--success-gradient); margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem; font-weight: 800;">
+            M</div>
+          <h3 style="margin-bottom: 0.5rem;">Михаил Новиков</h3>
+          <p style="color: var(--accent-blue); font-weight: 600; margin-bottom: 0.75rem;">Head of Education</p>
+          <p style="font-size: 0.95rem; color: var(--text-secondary);">15+ лет опыта в онлайн-образовании</p>
+        </div>
+        <div class="card" style="text-align: center;">
+          <div
+            style="width: 120px; height: 120px; border-radius: 50%; background: var(--dark-gradient); margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem; font-weight: 800;">
+            S</div>
+          <h3 style="margin-bottom: 0.5rem;">София Кузнецова</h3>
+          <p style="color: var(--text-primary); font-weight: 600; margin-bottom: 0.75rem;">Head of Design</p>
+          <p style="font-size: 0.95rem; color: var(--text-secondary);">UX/UI эксперт с премиальным вкусом</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technology -->
+  <section style="background: var(--bg-secondary); padding: 5rem 2rem;">
+    <div class="container" style="max-width: 1000px;">
+      <h2 class="section-title">Технологии, которые мы используем</h2>
+      <div class="card" style="padding: 3rem;">
+        <div class="grid grid-2" style="gap: 3rem;">
+          <div>
+            <h3 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem;">
+              <span style="font-size: 2.5rem;">🧠</span>
+              Искусственный интеллект
+            </h3>
+            <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 1rem;">
+              Мы используем передовые модели машинного обучения, включая GPT-4, Claude и собственные разработки для
+              генерации образовательного контента.
+            </p>
+            <ul style="color: var(--text-secondary); line-height: 2;">
+              <li>Google Gemini для генерации курсов</li>
+              <li>NLP для анализа контента</li>
+              <li>Персонализация с ML</li>
+            </ul>
+          </div>
+          <div>
+            <h3 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem;">
+              <span style="font-size: 2.5rem;">⚙️</span>
+              Инфраструктура
+            </h3>
+            <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 1rem;">
+              Современный tech-stack обеспечивает быструю и надежную работу платформы:
+            </p>
+            <ul style="color: var(--text-secondary); line-height: 2;">
+              <li>Python & Flask backend</li>
+              <li>Cloudне хранилище данных</li>
+              <li>CDN для быстрой загрузки</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section style="background: white; padding: 5rem 2rem;">
+    <div class="container" style="max-width: 900px;">
+      <h2 class="section-title">Наша история</h2>
+      <div style="position: relative; padding-left: 3rem;">
+        <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--primary-gradient);">
+        </div>
+
+        <div style="margin-bottom: 3rem; position: relative;">
+          <div
+            style="position: absolute; left: -3.5rem; top: 0; width: 40px; height: 40px; border-radius: 50%; background: white; border: 4px solid var(--accent-purple); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.125rem;">
+            1</div>
+          <div class="card">
+            <h3 style="color: var(--accent-purple);">2023 — Основание</h3>
+            <p style="color: var(--text-secondary);">Команда экспертов в AI и образовании объединилась с идеей
+              революционизировать онлайн-обучение.</p>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 3rem; position: relative;">
+          <div
+            style="position: absolute; left: -3.5rem; top: 0; width: 40px; height: 40px; border-radius: 50%; background: white; border: 4px solid var(--accent-pink); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.125rem;">
+            2</div>
+          <div class="card">
+            <h3 style="color: var(--accent-pink);">2023 — Первый прототип</h3>
+            <p style="color: var(--text-secondary);">Запуск beta-версии платформы и тестирование с первыми 100
+              пользователями.</p>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 3rem; position: relative;">
+          <div
+            style="position: absolute; left: -3.5rem; top: 0; width: 40px; height: 40px; border-radius: 50%; background: white; border: 4px solid var(--accent-blue); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.125rem;">
+            3</div>
+          <div class="card">
+            <h3 style="color: var(--accent-blue);">2024 — Официальный запуск</h3>
+            <p style="color: var(--text-secondary);">Публичный релиз платформы и привлечение первых 5000 студентов за 3
+              месяца.</p>
+          </div>
+        </div>
+
+        <div style="position: relative;">
+          <div
+            style="position: absolute; left: -3.5rem; top: 0; width: 40px; height: 40px; border-radius: 50%; background: white; border: 4px solid var(--accent-teal); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.125rem;">
+            4</div>
+          <div class="card">
+            <h3 style="color: var(--accent-teal);">2024 — Настоящее</h3>
+            <p style="color: var(--text-secondary);">10,000+ курсов создано, международное расширение и новые функции на
+              основе AI.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="background: var(--primary-gradient); color: white; padding: 5rem 2rem; text-align: center;">
+    <div class="container" style="max-width: 800px;">
+      <h2 style="color: white; font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1.5rem;">Присоединяйтесь к революции в
+        образовании</h2>
+      <p style="font-size: 1.25rem; color: rgba(255,255,255,0.95); margin-bottom: 2rem;">
+        Станьте частью сообщества студентов, которые меняют мир через знания
+      </p>
+      <a href="/#generate-course" class="btn"
+        style="background: white; color: var(--accent-purple); padding: 1.25rem 3rem; font-size: 1.25rem; font-weight: 700;">
+        <span>🚀</span> Начать обучение
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p style="padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);">
+        © 2024 NeuroLearn. Все права защищены. Сделано с ❤️ для учащихся повсюду.
+      </p>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
+
 </html>
